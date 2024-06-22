@@ -309,7 +309,6 @@ function getOrder() {
     get(child(dbref, '/orderRequest')).then((snapshot) => {
         let orders = snapshot.val();
         let cartona = '';
-        cartona += `<h2 class="subheadline">Requested Orders </h2>`
         for (let orderKey in orders) {
             if (orders.hasOwnProperty(orderKey)) {
                 const order = orders[orderKey];
@@ -359,7 +358,7 @@ function getOrder() {
             }
         }
 
-        document.getElementById('orderSec').innerHTML = cartona;
+        document.getElementById('requestedOrder').innerHTML = cartona;
     });
 }
 window.acceptOrder = acceptOrder
@@ -369,7 +368,73 @@ function acceptOrder(key) {
     })
 }
 getOrder()
+function getCompletedOrder() {
+    let dbref = ref(db);
+    get(child(dbref, '/completedOrder')).then((snapshot) => {
+        let orders = snapshot.val();
+        let cartona = '';
+        for (let orderKey in orders) {
+            if (orders.hasOwnProperty(orderKey)) {
+                const order = orders[orderKey];
+                // const orderPrice = order.totalPrice;
+                const orderName = order.name;
+                const orderMail = order.email;
+                cartona += `
+                <div class="product mainOrder compo" id="${orderKey}">
+                                <div class=" product orderDetails">
+                                    
+                                    <h3>Name: ${orderName}</h3>
+                                    <h4>Mail: ${orderMail}</h4>
+                                </div>
+                                <div class="product productMedia ">
+                                `;
 
+                // Iterate through products within the current order
+                const products = order.products;
+                for (let productKey in products) {
+                    if (products.hasOwnProperty(productKey)) {
+                        const product = products[productKey];
+                        if (product.productName == undefined) {
+                            continue;
+                        }
+                        cartona += `<div  style="margin: 5px 8px;">
+                                        <img src="${product.productImage}" height="50px">
+                                        <p class="fs-10">${product.price} LE</p>
+                                        </div>
+                                    `;
+                    }
+                }
+                if (order.isAccepted) {
+                    cartona += `     
+                    </div>
+                                    <button class="btn update accept btnOrder" onclick="acceptOrder('${orderKey}')">Accepted </button>
+                                </div>`
+                        ;
+                }
+                else{
+                    cartona += `     
+                    </div>
+                    <div  class="product orderDetails">
+                    <p>Client Feedback :</p>
+                    <p>${order.feedback}</p>
+                    </div>
+                                </div>`
+                        ;
+                }
+            }
+        }
+
+        document.getElementById('completedOrder').innerHTML = cartona;
+    });
+}
+getCompletedOrder()
+window.controlOrder=controlOrder
+function controlOrder(sections) {
+    document.getElementById(sections[0]).style.display = 'block'
+    document.getElementById(sections[1]).style.display = 'none'
+    document.getElementById(sections[2]).style.borderBottom = '1px solid #595fb8'
+    document.getElementById(sections[3]).style.borderBottom = '0px'
+}
 
 // & showing form popup
 window.closeSec = closeSec

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="stylesheet" href="./css/createUser.css">
     <link rel="stylesheet" href="css/admin.css">
-    <link rel="shortcut icon" href="media/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./media/logo.png" type="image/x-icon">
 </head>
 
 <body>
@@ -167,6 +167,13 @@
     </div>
     <!-- *orders section -->
     <div class="container overAuto" id="orderSec">
+        <div class="controlOrder">
+            <h2 class="subheadline orderPanal borderBottom" id="requested" onclick="controlOrder(['requestedOrder','completedOrder','requested','completed'])">Requested Orders </h2>
+            <h2 class="subheadline orderPanal" id="completed" onclick="controlOrder(['completedOrder','requestedOrder','completed','requested'])">Completed Orders </h2>
+        </div>
+        <div class="" id="requestedOrder"></div>
+        <div class="none" id="completedOrder"></div>
+
     </div>
     <!-- *creatUser section -->
     <div id="userCreation">
