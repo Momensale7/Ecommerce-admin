@@ -1,0 +1,139 @@
+/* :root{
+    --main-color:#fecc4c;
+}
+/* #faf0e4b7 */
+body{
+    margin: 0;
+    /* background-color: teal; */
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+.form{
+    height: 100vh;
+    background: linear-gradient(to left, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0.9)),  url('../imgs/ground.png') no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    
+align-items: center;
+justify-content: center;
+color: white;
+}
+.form h2 {
+    font-size: 28px;
+    margin: 5px;
+}
+.form h2 i{
+   margin-right:8px;
+   font-size: 30px;
+}
+.register{
+padding-block:40px ;
+width: 300px;
+margin: auto;
+background: rgb(93,85,11);
+background: linear-gradient(90deg, rgba(72, 71, 62, 0.404) 0%, rgba(79, 74, 62, 0.942) 49%);
+/* background-color:var(--main-color); */
+padding: 20px;
+border-radius: 15px;
+}
+
+.reg-Inp{
+margin-block: 10px;
+}
+.inp{
+padding: 7px ;
+border-radius: 5px;
+width: 95%;
+border: none;
+border-bottom:1px solid #eee ;
+}
+.inp:focus{
+    border: none;
+    outline: none;
+}
+label{
+    display: inline-block;
+    width: 110px;
+    margin-bottom: 4px;
+    font-size: 18px;
+}
+
+.is-valid{
+box-shadow: 0 0 5px green;
+background-image: url('../imgs/valid.png');
+background-size: 20px 20px;
+background-repeat: no-repeat;
+background-position: 275px 5px;
+}
+.is-invalid{
+box-shadow: 0 0 5px red;
+background-image: url('../imgs/notvalid.png');
+background-size: 20px 20px;
+background-repeat: no-repeat;
+background-position: 275px 5px;
+}
+.d-block{
+    display: block;
+}
+.d-none{
+    display: none;
+}
+.loading{
+position: absolute;
+background-color: rgba(0, 0, 0, 0.242);
+height: 100%;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+display: none;
+}
+
+.inp-err,#err{
+    color: red;
+    background-color: #efbcbc;
+    width: fit-content;
+    padding: 5px ;
+    margin: 5px;
+    display: none;
+
+}
+.form button{
+    padding: 10px 30px;
+    background-color: #f4f1eca6;
+    cursor: pointer;
+    border-radius: 20px;
+    color: #413f3f;
+    font-size: 15px;
+    border: 0;
+    font-weight: 600;
+    transition:300ms all;
+}
+.form button:hover{
+    border: 1px solid white;
+    color: white;
+    background-color: var(--main-color);
+} 
+.reg-link a{
+    color: #0456cacd;
+    font-weight: 700;
+    text-decoration: none;
+    transition:300ms all;
+
+}
+
+.reg-link a:hover{
+    text-decoration: underline;
+    color: #eee;
+}
+
+.check{
+    display: flex;
+    gap: 10px;
+}
+.check label{
+    width: fit-content;
+}

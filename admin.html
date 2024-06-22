@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Cart</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="./css/createUser.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="shortcut icon" href="media/logo.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- *navbar -->
+    <nav>
+        <div class="nav">
+            <h1 class="logo">
+                <a href="" class="logoText"><img src="/media/logo.png" alt="logo" width="24px"><span>Siwift Cart</span></a>
+                <i class="fa-solid fa-bars iconToggle" onclick="showNav()"></i>
+            </h1>
+            <div class="navCollection" id="navCollection">
+                
+                <ul class="navItem">
+                    <li onclick="getSection(['productSec','categorySec','orderSec','userCreation'])">Products</li>
+                <li onclick="getSection(['categorySec','productSec','orderSec','userCreation'])">Categories</li>
+                <li onclick="getSection(['orderSec','categorySec','productSec','userCreation'])">Orders</li>
+                <li onclick="getSection(['userCreation','orderSec','categorySec','productSec'])" id="manage">Manage
+                    Admin</li>
+                </ul>
+                <p onclick="logout()" id="logout"><i class="fa-solid fa-right-from-bracket fa-xl"></i></p>
+            </div>
+        </div>
+    </nav>
+
+    <!-- *products section -->
+    <div id="productSec">
+        <div class="sectionProduct" id="productForm">
+            <form action="" id="products">
+                <i class="fa-solid fa-x fa-xl clsbtn" onclick="closeSec(this)"></i>                <h2 class="subheadline">Products Crud</h2>
+                <input type="hidden" id="hiddenId">
+                <div class="formHolder">
+                    <label for="product">product Name :</label>
+                    <input type="text" class="formControl" oninput="showAlert(this)" id="productName">
+                    <p class="alert">must be atleast 3 charachter </p>
+                </div>
+                <div class="formHolder">
+                    <label for="price">price :</label>
+                    <input type="text" class="formControl" oninput="showAlert(this)" id="price">
+                    <p class="alert">must be one or more digit</p>
+                </div>
+                <div class="formHolder">
+                    <label for="catSelection">Category :</label>
+                    <select type="text" class="formControl" oninput="showAlert(this)" id="catSelection">
+                        <option value="Electronics">Electronics</option>
+                        <option value="Clothes">Clothes</option>
+                        <option value="Furniture">Furniture</option>
+                        <option value="Shoes">Shoes</option>
+                        <option value="Books">Books</option>
+                        <option value="Games">Games</option>
+                    </select>
+                    <p class="alert">must be atleast 3 charachter </p>
+                </div>
+                <div class="formHolder">
+                    <label for="quantity">Stock Quantity:</label>
+                    <input type="number" class="formControl" oninput="showAlert(this)" id="quantity">
+                    <p class="alert">must be positive number </p>
+                </div>
+                <div class="formHolder">
+                    <label for="rating">Rating :</label>
+                    <input type="text" class="formControl" oninput="showAlert(this)" id="rating">
+                    <p class="alert">must be one or more digit and optional decimals </p>
+                </div>
+                <div class="formHolder">
+                    <label for="image">Image :</label>
+                    <input type="file" class="formControl" onchange="getFile(event)"
+                        accept="image/jpg,image/png,image/jpeg" name="" id="productImage" placeholder="name">
+                </div>
+                <div class="formHolder">
+                    <label for="description">Description :</label>
+                    <textarea class="formControl" oninput="showAlert(this)" id="description"></textarea>
+                    <p class="alert">must be at least 3 characters including underscores and spaces</p>
+                </div>
+                <button class=" btnSubmit btn" id="addBtn"> add</button>
+                <button class=" btnSubmit btn updateFirebase" type="button" id="updateBtn"> Ubdate</button>
+            </form>
+        </div>
+        <div class="container overAuto">
+            <!-- ^displaying table -->
+            <table class="styled-table">
+                <h2 class="subheadline">products List</h2>
+                <div><button class="btn btnLight" onclick="showForm('productForm')">Add Product</button></div>
+                <input type="text" class="formControl searchInp" oninput="filterProduct(this)" id="search" placeholder="search for Product">
+                <thead>
+                    <tr>
+                        <th>i</th>
+                        <th>image</th>
+                        <th>Name</th>
+                        <th>category</th>
+                        <th>Q</th>
+                        <th>price</th>
+                        <th>rating</th>
+                        <th>delete</th>
+                        <th>update</th>
+
+                    </tr>
+                </thead>
+                <tbody id="diplayArea">
+
+                    <!-- and so on... -->
+                </tbody>
+            </table>
+            <!-- <div class="productSection">
+            <div class="products" id="diplayArea">
+            </div> -->
+            <!-- </div> -->
+        </div>
+    </div>
+    <!-- *categorie section -->
+    <div id="categorySec">
+        <div class="sectionProduct" id="categoryForm">
+            <form action="" id="categories">
+                <i class="fa-solid fa-x fa-xl clsbtn" onclick="closeSec(this)"></i>
+                <h2 class="subheadline">categories Crud</h2>
+                <input type="hidden" id="categoryHiddenId">
+                <div class="formHolder">
+                    <label for="category">category Name :</label>
+                    <input oninput="showAlrt(this)" type="text" class="formControl" id="category">
+                    <p class="alert">must be atleast 3 charachter </p>
+                </div>
+                <div class="formHolder">
+                    <label for="productsCount">products count :</label>
+                    <input oninput="showAlrt(this)" type="number" class="formControl" id="productsCount">
+                    <p class="alert">must be a valid number </p>
+                </div>
+                <div class="formHolder">
+                    <label for="image">Image :</label>
+                    <input type="file" class="formControl" onchange="getFileCat(event)"
+                        accept="image/jpg,image/png,image/jpeg,image/avif" name="" id="image" placeholder="name">
+                </div>
+                <button class=" btn" id="addBtnCategory"> add</button>
+                <button class="btn" type="button" id="updateBtnCategory"> Ubdate</button>
+            </form>
+        </div>
+        <div class="container overAuto">
+            <table class="styled-table">
+                <h2 class="subheadline">categories List</h2>
+                <div><button class="btn btnLight" onclick="showForm('categoryForm')">Add Category</button></div>
+                
+                <thead>
+                    <tr>
+                        <th>i</th>
+                        <th>image</th>
+                        <th>Category Name</th>
+                        <th>products count</th>
+                        <th>delete</th>
+                        <th>update</th>
+
+                    </tr>
+                </thead>
+                <tbody id="CategoriesDiplayArea">
+
+                    <!-- and so on... -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- *orders section -->
+    <div class="container overAuto" id="orderSec">
+    </div>
+    <!-- *creatUser section -->
+    <div id="userCreation">
+        <div class="sectionProduct" id="createForm">
+                <form class="register" id="regForm">
+                    <i class="fa-solid fa-x fa-xl clsbtn" onclick="closeSec(this)"></i> 
+                    <h2 class="subheadline"><i class="fa-solid fa-user fa-sm"></i>Create User Admin</h2>
+                    <div class="reg-Inp">
+                        <label for="name"><i class="fa-solid fa-rectangle-ad"></i> Name</label>
+                        <input onblur="clearValidatClass(this)" oninput="validateInput(this)" type="text" class="inp"
+                            name="userName" id="name" placeholder="Enter Name">
+                        <p class="inp-err">must contain at least 5 character</p>
+                    </div>
+                    <div class="reg-Inp">
+                        <label for="email"><i class="fa-solid fa-envelope"></i> Email</label>
+                        <input onblur="clearValidatClass(this)" oninput="validateInput(this)" type="text" class="inp"
+                            name="email" id="email" placeholder="Enter Your Email">
+                        <p class="inp-err">enter valid email "example@gmail.com"</p>
+
+                    </div>
+
+                    <div class="reg-Inp">
+                        <label for="passwordCreate"><i class="fa-solid fa-lock"></i> password</label>
+                        <input onblur="clearValidatClass(this)" oninput="validateInput(this)" type="password"
+                            class="inp" name="passwordCreate" id="passwordCreate" placeholder="Enter  password">
+                        <p class="inp-err">minimun password length 6</p>
+
+                    </div>
+                    <div class="reg-Inp">
+                        <label for="rePass"><i class="fa-solid fa-lock"></i> rePassword</label>
+                        <input onblur="clearValidatClass(this)" oninput="validateInput(this)" type="password"
+                            class="inp" name="rePass" id="rePass" placeholder="Enter rePassword">
+                        <p class="inp-err">password not matched</p>
+                    </div>
+                    <div class="check">
+                        <label for="userCreateChec">Can Create</label>
+                        <input type="checkbox" class="" name="canCreate" id="userCreateCheck">
+                    </div>
+
+                    <div id="err"></div>
+                    <button type="submit" class="btn" id="btn">Create</button>
+                </form>
+            <!-- </div> -->
+        </div>
+        <div>
+            <div class="max-wid container overAuto">
+                <table class="styled-table">
+                    <h2 class="subheadline">Admins List</h2>
+                    <div><button class="btn btnLight" onclick="showForm('createForm')">Add Admin</button></div>
+                    <thead>
+                        <tr>
+                            <th>i</th>
+                            <th>Name</th>
+                            <th>email</th>
+                            <th>Delete User</th>
+                        </tr>
+                    </thead>
+                    <tbody id="displayAreaCreate">
+
+                        <!-- and so on... -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="js/craud.js"></script>
+    <script type="module" src="js/category.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="module" src="./js/createUser.js"></script>
+</body>
+
+</html>
